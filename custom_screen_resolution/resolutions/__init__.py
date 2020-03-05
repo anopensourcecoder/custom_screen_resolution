@@ -1,3 +1,9 @@
+"""Top-level package for Custom Screen Resolution."""
+
+__author__ = """anopensourcecoder"""
+__email__ = 'anopensourcecoder@gmail.com'
+__version__ = '0.2.0'
+
 import math
 
 class PPI():
@@ -97,6 +103,5 @@ class Resolution( ):
     def display(self):
         print("\t%.2f" %self.diagonal_size  + "\t%.2f" % self.ppi
               + "\t%.0f" % self.width_pixels + "x%.0f" % self.height_pixels )
-
 
 

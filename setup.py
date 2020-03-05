@@ -36,6 +36,9 @@ setup(
         'console_scripts': [
             'custom_screen_resolution=custom_screen_resolution.cli:main',
         ],
+        'gui_scripts': [
+            'custom_screen_resolution_gui=custom_screen_resolution.gui:main',
+        ]
     },
     install_requires=requirements,
     license="GNU General Public License v3",
@@ -48,6 +51,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/anopensourcecoder/custom_screen_resolution',
-    version='0.1.0',
+    version='0.2.0',
     zip_safe=False,
 )

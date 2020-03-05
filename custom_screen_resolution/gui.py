@@ -1,4 +1,5 @@
-from resolutions import  PPI, Scale, Height, Resolution
+
+from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
 from tkinter import *
 
 class ResolutionsGUI:
@@ -123,6 +124,12 @@ class ResolutionsGUI:
 
 
 
-root = Tk()
-my_gui = ResolutionsGUI(root)
-root.mainloop()
+def main( ):
+    root = Tk()
+    my_gui = ResolutionsGUI(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
+
+

@@ -4,4 +4,3 @@ __author__ = """anopensourcecoder"""
 __email__ = 'anopensourcecoder@gmail.com'
 __version__ = '0.2.0'
 
-import  custom_screen_resolution
