@@ -1,7 +1,13 @@
 """Console script for custom_screen_resolution."""
 import sys
 import click
-from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
+
+try:
+    from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
+except ModuleNotFoundError:
+    from resolutions import  PPI, Scale, Height, Resolution
+
+
 
 @click.command()
 #@click.option('--name', default='FullHD 15.6', prompt='Display name', help='The display name ')
