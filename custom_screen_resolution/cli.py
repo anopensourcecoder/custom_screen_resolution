@@ -12,7 +12,7 @@ from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
 @click.option('--ratioy', default='9', prompt='Aspect ratio y', help='Display aspect ratio y')
 
 
-def screen_width_height(size='15.6', ppi='141.2', ratiox='16', ratioy='9'):
+def main(size='15.6', ppi='141.2', ratiox='16', ratioy='9'):
     """Console script for custom_screen_resolution."""
     #click.echo("Replace this message by putting your code into "custom_screen_resolution.cli.main")
     #click.echo("See click documentation at https://click.palletsprojects.com/")
@@ -22,7 +22,7 @@ def screen_width_height(size='15.6', ppi='141.2', ratiox='16', ratioy='9'):
     click.echo('%s' % result)
 
 if __name__ == "__main__":
-    screen_width_height()
+    main()
     #sys.exit(main())  # pragma: no cover
 
 
