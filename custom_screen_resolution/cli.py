@@ -2,12 +2,7 @@
 import sys
 import click
 
-try:
-    from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
-except ModuleNotFoundError:
-    from resolutions import  PPI, Scale, Height, Resolution
-
-
+from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
 
 @click.command()
 #@click.option('--name', default='FullHD 15.6', prompt='Display name', help='The display name ')
@@ -16,18 +11,19 @@ except ModuleNotFoundError:
 @click.option('--ratiox', default='16', prompt='Aspect ratio x', help='Display aspect ratio x')
 @click.option('--ratioy', default='9', prompt='Aspect ratio y', help='Display aspect ratio y')
 
-def main( size, ppi, ratiox, ratioy):
+
+def screen_width_height(size='15.6', ppi='141.2', ratiox='16', ratioy='9'):
     """Console script for custom_screen_resolution."""
     #click.echo("Replace this message by putting your code into "custom_screen_resolution.cli.main")
     #click.echo("See click documentation at https://click.palletsprojects.com/")
-
     demo = Resolution(size, ppi, ratiox, ratioy)
     result = "Width: " + str(demo.get_width_pixels()) + " Pixels\t Height: " + str(
         demo.get_height_pixels()) + " Pixels."
     click.echo('%s' % result)
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    screen_width_height()
+    #sys.exit(main())  # pragma: no cover
 
 
 #link https://click.palletsprojects.com/en/7.x/

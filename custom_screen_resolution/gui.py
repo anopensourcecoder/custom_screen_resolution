@@ -1,8 +1,11 @@
 
-try:
-    from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
-except ModuleNotFoundError:
-    from resolutions import  PPI, Scale, Height, Resolution
+#try:
+#    from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
+#except ModuleNotFoundError:
+#    from resolutions import  PPI, Scale, Height, Resolution
+
+
+from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
 
 from tkinter import *
 
