@@ -28,8 +28,8 @@ This software allow to create custom screen resolution that can solve the proble
 It can create custom resolution with same DPI at higher zoom level.
 This way you can have both sharp pixel at native resolution while having lower DPI.
 You also can use it to have a lower resolution at your comfort DPI level.
-This can help to save power which might be important for portable device.
-Lower resolution and DPI need less internet bandwidth.
+This can help to save power and battery life that is important for portable device.
+Lower resolution and DPI need less internet bandwidth too.
 This can improve remote desktop performance.
 
 
