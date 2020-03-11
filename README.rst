@@ -26,9 +26,11 @@ I find myself to be comfortable with screen DPI between 100 to 140 depends to th
 
 This software allow to create custom screen resolution that can solve the problem.
 It can create custom resolution with same DPI at higher zoom level.
-This way you can have both sharp pixel at native resolution while having low DPI.
-You also can use to have a lower resolution at your comfort DPI level and this should help to save power which might be important for portable device.
-Lower resolution and DPI need less internet bandwidth and this can improve remote desktop performance.
+This way you can have both sharp pixel at native resolution while having lower DPI.
+You also can use it to have a lower resolution at your comfort DPI level.
+This can help to save power which might be important for portable device.
+Lower resolution and DPI need less internet bandwidth.
+This can improve remote desktop performance.
 
 
 
