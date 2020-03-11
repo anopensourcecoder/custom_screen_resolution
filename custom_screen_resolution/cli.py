@@ -3,27 +3,87 @@ import sys
 import click
 
 from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
+@click.group()
+@click.version_option()
+#@click.command()
+def main():
+    """Welcome custom_screen_resolution console version.
+    """
+    return 0
 
-@click.command()
-#@click.option('--name', default='FullHD 15.6', prompt='Display name', help='The display name ')
-@click.option('--size', default='15.6', prompt='Display size', help='Display size in inch ')
-@click.option('--ppi', default='141.2', prompt='Ppi or dpi', help='Sisplay ppi or dpi')
-@click.option('--ratiox', default='16', prompt='Aspect ratio x', help='Display aspect ratio x')
-@click.option('--ratioy', default='9', prompt='Aspect ratio y', help='Display aspect ratio y')
+
+@main.command("side")
+@click.argument("size", type=float)
+@click.argument("dpi" ,type=float)
+@click.argument("ratiox",type=float)
+@click.argument("ratioy",type=float)
+def screen_side(size, dpi, ratiox, ratioy):
+    """Calculate Width and height base on screen size dpi and aspect ratio.
+
+    \b
+    Example: screen side 15.6 141.2 16 9
+    Width: 1920
+    Height: 1080
+    """
+
+    from custom_screen_resolution.resolutions import PPI, Scale, Height, Resolution
+    screen = Resolution(size, dpi, ratiox, ratioy)
+    width = screen.get_width_pixels()
+    click.echo("Width: \t{}".format(width))
+
+    height =  screen.get_height_pixels()
+    click.echo("Height:\t{}".format(height))
 
 
-def main(size='15.6', ppi='141.2', ratiox='16', ratioy='9'):
-    """Console script for custom_screen_resolution."""
-    #click.echo("Replace this message by putting your code into "custom_screen_resolution.cli.main")
-    #click.echo("See click documentation at https://click.palletsprojects.com/")
-    demo = Resolution(size, ppi, ratiox, ratioy)
-    result = "Width: " + str(demo.get_width_pixels()) + " Pixels\t Height: " + str(
-        demo.get_height_pixels()) + " Pixels."
-    click.echo('%s' % result)
+@main.command("size")
+@click.argument("width", type=float)
+@click.argument("height" ,type=float)
+@click.argument("dpi",type=float)
+def screen_dpi(width, height, dpi):
+    """Calculate screen size base on resolution and dpi.
+
+    \b
+    Example: size 1920 1080 141.21
+    Size:   15.6
+    """
+
+    from custom_screen_resolution.resolutions import PPI, Scale, Height, Resolution
+    size_float =  PPI(width,height,dpi).get()
+    size_human= "%.1f" % size_float
+    click.echo("Size:\t{}".format(size_human))
+
+
+
+@main.command("dpi")
+@click.argument("width", type=float)
+@click.argument("height" ,type=float)
+@click.argument("size",type=float)
+@click.option("--zoom",
+              default=1,
+              help="Optional if you want to ser screen zoom level.")
+def screen_dpi(width, height, size, zoom):
+    """Calculate screen size base on screen size and dpi and zoom level.
+
+    \b
+    Example: dpi 1920 1080 8 --zoom 2
+    DPI:    137.68169813014364
+    zoom:   2
+
+    \b
+    Example 2: dpi 1920 1080 15.6
+    DPI:    141.21
+    """
+
+    from custom_screen_resolution.resolutions import PPI, Scale, Height, Resolution
+
+
+    dpi_float = PPI(width, height, size, zoom).get()
+    dpi_human = "%.2f" % dpi_float
+    click.echo("DPI:\t{}".format(dpi_human))
+
+
 
 if __name__ == "__main__":
-    main()
-    #sys.exit(main())  # pragma: no cover
+    sys.exit(main())  # pragma: no cover
 
 
-#link https://click.palletsprojects.com/en/7.x/

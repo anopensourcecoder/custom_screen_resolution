@@ -20,7 +20,16 @@ Custom Screen Resolution
 
 
 
-Create custom resolution base on screen size and more.
+Create custom resolution base on screen size, dpi and zoom level.
+
+I find myself to be comfortable with screen DPI between 100 to 140 depends to the distance between display and me. High DPI might be usefull for graphic software but it has issue with remote desktop and older software. Also when you have multiple displays with different DPI.
+
+This software allow to create custom screen resolution that can solve the problem.
+It can create custom resolution with same DPI at higher zoom level.
+This way you can have both sharp pixel at native resolution while having low DPI.
+You also can use to have a lower resolution at your comfort DPI level and this should help to save power which might be important for portable device.
+Lower resolution and DPI need less internet bandwidth and this can improve remote desktop performance.
+
 
 
 * Free software: GNU General Public License v3
@@ -30,7 +39,11 @@ Create custom resolution base on screen size and more.
 Features
 --------
 
-* TODO
+* Gui and Cli interface.
+* Calculate Width and height base on screen size, dpi and aspect ratio ( via cli and gui )
+* Calculate screen size base on resolution and dpi ( via cli)
+* Calculate screen size base on screen size and dpi and zoom level ( via cli)
+
 
 Credits
 -------
