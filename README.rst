@@ -6,7 +6,7 @@ Custom Screen Resolution
 .. image:: https://img.shields.io/pypi/v/custom_screen_resolution.svg
         :target: https://pypi.python.org/pypi/custom_screen_resolution
 
-.. image:: https://img.shields.io/travis/anopensourcecoder/custom_screen_resolution.svg
+.. image:: https://travis-ci.com/anopensourcecoder/custom_screen_resolution.svg?branch=master
         :target: https://travis-ci.com/anopensourcecoder/custom_screen_resolution
 
 .. image:: https://readthedocs.org/projects/custom-screen-resolution/badge/?version=latest
