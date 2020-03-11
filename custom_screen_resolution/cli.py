@@ -9,6 +9,7 @@ from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
 def main():
     """Welcome custom_screen_resolution console version.
     """
+    click.echo("Enjoy!")
     return 0
 
 
