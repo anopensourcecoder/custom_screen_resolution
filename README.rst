@@ -22,10 +22,37 @@ Custom Screen Resolution
 
 Create custom resolution base on screen size, dpi and zoom level.
 
-I find myself to be comfortable with screen DPI between 100 to 140 depends to the distance between display and me. High DPI might be usefull for graphic software but it has issue with remote desktop and older software. Also when you have multiple displays with different DPI.
+I find myself to be comfortable with screen DPI between 100 to 140.
+It also depends to the distance between display and my eys.
+Plus the font size and sharpness of font.
 
-This software allow to create custom screen resolution that can solve the problem.
-It can create custom resolution with same DPI at higher zoom level.
+High DPI might be usefull for graphic software
+but it has issue with remote desktop and older software.
+Also when you have multiple displays with different DPI.
+
+This software allows findout best DPI that can solve the problem.
+It can also can suggest same DPI at higher scaling level.
+For example a 14 inch display with resolution of 2560x1440 has a DPI equal to 209.
+
+dpi 2560 1440 14
+DPI:    209.80
+
+A quick solution is to set the resolution to 1280x720 because the DPI of 100.5 falls into comfortable level.
+dpi 1280 720 14
+DPI:    104.90
+
+Unfortunately the output become blury because LCD disply only can provide sharp display at native resolution.
+This issue can be solved by creating a custom resolution that is integer scaled by 2.
+
+Here is an example how you can calculate it
+2560 1440 14 --zoom 2
+DPI:    104.90
+
+As you see now we can have a lower DPI resolution at higer native LCD resolution that is integer scaled by 2.
+This give you best of both worlds. Sharp text with lower DPI.
+
+Note. Currently only latest Xrandr development version hub support integer scaling.
+
 This way you can have both sharp pixel at native resolution while having lower DPI.
 You also can use it to have a lower resolution at your comfort DPI level.
 This can help to save power and battery life that is important for portable device.

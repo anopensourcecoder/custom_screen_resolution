@@ -9,7 +9,7 @@ from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
 def main():
     """Welcome custom_screen_resolution console version.
     """
-    click.echo("Enjoy!")
+    #click.echo("Enjoy!")
     return 0
 
 
@@ -62,7 +62,13 @@ def screen_dpi(width, height, dpi):
 @click.option("--zoom",
               default=1,
               help="Optional if you want to ser screen zoom level.")
-def screen_dpi(width, height, size, zoom):
+
+@click.option(  "--xrandr",
+                default=False,
+                is_flag=True,
+                help="Display xrandr command to generate the resolution.")
+
+def screen_dpi(width, height, size, zoom,xrandr):
     """Calculate screen size base on screen size and dpi and zoom level.
 
     \b
@@ -82,6 +88,10 @@ def screen_dpi(width, height, size, zoom):
     dpi_human = "%.2f" % dpi_float
     click.echo("DPI:\t{}".format(dpi_human))
 
+
+
+    if xrandr==True:
+        click.echo("xrandr section is under development")
 
 
 if __name__ == "__main__":
