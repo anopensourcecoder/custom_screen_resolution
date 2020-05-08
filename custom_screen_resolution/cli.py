@@ -2,7 +2,7 @@
 import sys
 import click
 
-from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
+from custom_screen_resolution.custom_screen_resolution import  PPI, Scale, Height, Resolution
 @click.group()
 @click.version_option()
 #@click.command()
@@ -27,7 +27,7 @@ def screen_side(size, dpi, ratiox, ratioy):
     Height: 1080
     """
 
-    from custom_screen_resolution.resolutions import PPI, Scale, Height, Resolution
+    from custom_screen_resolution.custom_screen_resolution import PPI, Scale, Height, Resolution
     screen = Resolution(size, dpi, ratiox, ratioy)
     width = screen.get_width_pixels()
     click.echo("Width: \t{}".format(width))
@@ -48,7 +48,7 @@ def screen_dpi(width, height, dpi):
     Size:   15.6
     """
 
-    from custom_screen_resolution.resolutions import PPI, Scale, Height, Resolution
+    from custom_screen_resolution.custom_screen_resolution import PPI, Scale, Height, Resolution
     size_float =  PPI(width,height,dpi).get()
     size_human= "%.1f" % size_float
     click.echo("Size:\t{}".format(size_human))
@@ -60,6 +60,7 @@ def screen_dpi(width, height, dpi):
 @click.argument("height" ,type=float)
 @click.argument("size",type=float)
 @click.option("--zoom",
+            type=float,
               default=1,
               help="Optional if you want to ser screen zoom level.")
 
@@ -81,7 +82,7 @@ def screen_dpi(width, height, size, zoom,xrandr):
     DPI:    141.21
     """
 
-    from custom_screen_resolution.resolutions import PPI, Scale, Height, Resolution
+    from custom_screen_resolution.custom_screen_resolution import PPI, Scale, Height, Resolution
 
 
     dpi_float = PPI(width, height, size, zoom).get()

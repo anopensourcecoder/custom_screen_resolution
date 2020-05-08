@@ -5,32 +5,40 @@
 #    from resolutions import  PPI, Scale, Height, Resolution
 
 
-from custom_screen_resolution.resolutions import  PPI, Scale, Height, Resolution
+from custom_screen_resolution.custom_screen_resolution import  PPI, Scale, Height, Resolution
 
 from tkinter import *
 
-class ResolutionsGUI:
+class CSR_GUI:
 
 
     def __init__(self, main_form):
-        print("ResolutionsGUI init")
+        #print("ResolutionsGUI init")
         font_gui = "Arial 11"
-        font_header = "Arial 20"
+        font_menu = "Arial 13"
+        font_header_title = "Arial 20"
+        font_header = "Arial 15"
         font_label_input = "Arial 10"
         font_input = "Arial 16"
         width_input = 7
         font_submit = "Arial 11"
         font_result = "Arial 16"
-        main_form.title("Resolutions GUI")
-        main_form.geometry("600x600")
+        main_form.title("Custom Screen Resolution GUI")
+        main_form.geometry("800x600")
         main_form.grid_rowconfigure(0, weight=1)
         main_form.grid_columnconfigure(0, weight=1)
+
 
         #root.configure()
         main_frame = Frame(main_form )
         main_frame.grid(row=0, column=0, sticky="NEW")
         main_frame.grid_rowconfigure(0, weight=1)
+        main_frame.grid_rowconfigure(1, weight=1)
+        main_frame.grid_rowconfigure(2, weight=1)
         main_frame.grid_columnconfigure(0, weight=1)
+        main_frame.grid_columnconfigure(1, weight=0)
+        main_frame.grid_columnconfigure(2, weight=1)
+
 
 
         # menu
@@ -38,7 +46,7 @@ class ResolutionsGUI:
         main_form.config(menu=menu_bar)
 
         file_menu = Menu(menu_bar, tearoff=0)
-        #file_menu.add_command(font=guifont, label="About")
+        file_menu.add_command(font=font_menu, label="About")
         #file_menu.add_command(font=guifont, label="Save")
         #file_menu.add_command(font=guifont, label="Settings")
         #file_menu.add_command(font=guifont, label="Import")
@@ -47,78 +55,227 @@ class ResolutionsGUI:
 
 
         file_menu.add_separator()
-        file_menu.add_command(font=font_gui, label="Exit", command=lambda arg1=main_form: self.quit_sofware(arg1))
-        menu_bar.add_cascade(font=font_gui, label="File", menu=file_menu)
+        file_menu.add_command(font=font_menu, label="Exit", command=lambda arg1=main_form: self.quit_sofware(arg1))
+        menu_bar.add_cascade(font=font_menu, label="Menu", menu=file_menu)
+
+        # ------- Header frame -----------------
+        self.gui_header_frame = Frame(main_frame, height=30)
+        self.gui_header_frame.grid(row=0, column=1)
+        self.gui_header_title = Label(self.gui_header_frame, text="Welcome to Custom Screen Resolution!", font=font_header_title)
+        self.gui_header_title.grid(row=0, column=0, sticky="W", pady=20)
+
+        #------------side--------------
+        self.side_frame = LabelFrame(main_frame,text="Calculate Width and height base on screen size, dpi and aspect ratio"
+                                     ,borderwidth=4, font=font_header )
+        self.side_frame.grid(row=1, column=1, sticky="WNE")
+        #self.side_frame.configure(padx=0, pady=10)
+        #self.side_frame.configure( background = '#bbaaaa')
+
+        self.side_screen_size = StringVar()
+        self.side_screen_ppi = StringVar()
+        self.side_screen_ratiox = StringVar()
+        self.side_screen_ratioy = StringVar()
+        self.side_result = StringVar()
+
+        self.side_label_size = Label(self.side_frame, font=font_label_input, text="Screen Size" )
+        self.side_label_size.grid(row=2, column=0, sticky="W",padx=10)
+        self.side_entry_size = Entry(self.side_frame, width=width_input, font=font_input, textvariable=self.side_screen_size )
+        self.side_entry_size.grid(row=3, column=0, sticky="W",padx=10)
+
+        self.side_label_ppi = Label(self.side_frame, font=font_label_input, text="Screen PPI")
+        self.side_label_ppi.grid(row=2, column=1, sticky="W",padx=10)
+        self.side_entry_ppi = Entry(self.side_frame, width=width_input, font=font_input, textvariable=self.side_screen_ppi )
+        self.side_entry_ppi.grid(row=3, column=1, sticky="W",padx=10)
+
+        self.side_label_ratiox = Label(self.side_frame, font=font_label_input, text="Ratio X")
+        self.side_label_ratiox.grid(row=2, column=2, sticky="W" ,padx=10)
+        self.side_entry_ratiox = Entry(self.side_frame, width=width_input, font=font_input, textvariable=self.side_screen_ratiox )
+        self.side_entry_ratiox.grid(row=3, column=2, sticky="W" ,padx=10)
+
+        self.side_label_ratioy = Label(self.side_frame, font=font_label_input, text="Ratio Y")
+        self.side_label_ratioy.grid(row=2, column=3, sticky="W" ,padx=10)
+        self.side_entry_ratioy = Entry(self.side_frame, width=width_input, font=font_input, textvariable=self.side_screen_ratioy )
+        self.side_entry_ratioy.grid(row=3, column=3, sticky="W" ,padx=10)
+
+        self.side_entry_ratioy = Button(self.side_frame, width=width_input, height=1,  font=font_submit,
+                                   text="Submit", command=self.side_command)
+        self.side_entry_ratioy.grid(row=3, column=4, sticky="W", padx=10)
+
+        self.side_label_result = Label(self.side_frame, font=font_result, textvariable=self.side_result )
+        self.side_label_result.grid(row=4, column=0, columnspan=5, sticky="W" ,padx=10,pady=10)
+
+        self.demo_side()
+
+        #-------empty frame -----------------
+        self.gui_empty_frame2 = Frame(main_frame ,height=20)
+        self.gui_empty_frame2.grid(row=2, column=1 )
+
+        #--------dpi-----------------------
+        self.gui_dpi_frame = LabelFrame(main_frame,text="Calculate screen size base on screen size and dpi and zoom level"
+                                        , borderwidth=4, font=font_header)
+        self.gui_dpi_frame.grid(row=3, column=1, sticky="WNE")
+        self.gui_dpi_frame.configure(padx=0, pady=10)
+        #self.gui_dpi_frame.configure(background='#aabbaa')
+
+        self.dpi_screen_width = StringVar()
+        self.dpi_screen_height = StringVar()
+        self.dpi_screen_size = StringVar()
+        self.dpi_screen_zoom = StringVar()
+
+        self.dpi_result = StringVar()
+
+        self.label_width = Label(self.gui_dpi_frame, font=font_label_input, text="Screen Width")
+        self.label_width.grid(row=2, column=0, sticky="W", padx=10)
+        self.entry_width = Entry(self.gui_dpi_frame, width=width_input, font=font_input, textvariable=self.dpi_screen_width)
+        self.entry_width.grid(row=3, column=0, sticky="W", padx=10)
+
+        self.label_height = Label(self.gui_dpi_frame, font=font_label_input, text="Screen Height")
+        self.label_height.grid(row=2, column=1, sticky="W", padx=10)
+        self.entry_height = Entry(self.gui_dpi_frame, width=width_input, font=font_input, textvariable=self.dpi_screen_height)
+        self.entry_height.grid(row=3, column=1, sticky="W", padx=10)
+
+        self.label_size = Label(self.gui_dpi_frame, font=font_label_input, text="Screen Size")
+        self.label_size.grid(row=2, column=2, sticky="W", padx=10)
+        self.entry_size = Entry(self.gui_dpi_frame, width=width_input, font=font_input, textvariable=self.dpi_screen_size)
+        self.entry_size.grid(row=3, column=2, sticky="W", padx=10)
+
+        self.label_zoom = Label(self.gui_dpi_frame, font=font_label_input, text="Zoom Level")
+        self.label_zoom.grid(row=2, column=3, sticky="W", padx=10)
+        self.entry_zoom = Entry(self.gui_dpi_frame, width=width_input, font=font_input, textvariable=self.dpi_screen_zoom)
+        self.entry_zoom.grid(row=3, column=3, sticky="W", padx=10)
+
+        self.entry_dpi_submit = Button(self.gui_dpi_frame, width=width_input, height=1, font=font_submit,
+                                   text="Submit", command=self.screen_dpi_command)
+        self.entry_dpi_submit.grid(row=3, column=4, sticky="W", padx=10)
+
+        self.label_dpi_result = Label(self.gui_dpi_frame, font=font_result, textvariable=self.dpi_result)
+        self.label_dpi_result.grid(row=4, column=0, columnspan=5, sticky="W", padx=10, pady=10)
+
+        self.demo_dpi()
+
+        # -------empty frame -----------------
+        self.gui_empty_frame3 = Frame(main_frame, height=20)
+        self.gui_empty_frame3.grid(row=4, column=1)
+
+        # --------size-----------------------
+        self.gui_size_frame = LabelFrame(main_frame,text="Calculate screen size base on resolution and ppi"
+                                        , borderwidth=4, font=font_header)
+        self.gui_size_frame.grid(row=5, column=1, sticky="WNE")
+        self.gui_size_frame.configure(padx=0, pady=10)
+
+        self.size_screen_width = StringVar()
+        self.size_screen_height = StringVar()
+        self.size_screen_ppi = StringVar()
+
+        self.size_result = StringVar()
+
+        self.size_label_width = Label(self.gui_size_frame, font=font_label_input, text="Screen Width")
+        self.size_label_width.grid(row=2, column=0, sticky="W", padx=10)
+        self.size_entry_width = Entry(self.gui_size_frame, width=width_input, font=font_input,
+                                 textvariable=self.dpi_screen_width)
+        self.size_entry_width.grid(row=3, column=0, sticky="W", padx=10)
+
+        self.size_label_height = Label(self.gui_size_frame, font=font_label_input, text="Screen Height")
+        self.size_label_height.grid(row=2, column=1, sticky="W", padx=10)
+        self.size_entry_height = Entry(self.gui_size_frame, width=width_input, font=font_input,
+                                  textvariable=self.dpi_screen_height)
+        self.size_entry_height.grid(row=3, column=1, sticky="W", padx=10)
+
+        self.size_label_ppi = Label(self.gui_size_frame, font=font_label_input, text="Screen PPI")
+        self.size_label_ppi.grid(row=2, column=2, sticky="W", padx=10)
+        self.size_entry_ppi = Entry(self.gui_size_frame, width=width_input, font=font_input,
+                                textvariable=self.size_screen_ppi)
+        self.size_entry_ppi.grid(row=3, column=2, sticky="W", padx=10)
 
 
 
-        self.resolution_frame = Frame(main_frame)
-        self.resolution_frame.grid(row=0, column=0, sticky="N")
-        self.resolution_frame.configure(padx=0, pady=5)
+        self.entry_size_submit = Button(self.gui_size_frame, width=width_input, height=1, font=font_submit,
+                                       text="Submit", command=self.screen_size_command)
+        self.entry_size_submit.grid(row=3, column=4, sticky="W", padx=10)
 
-        self.label_header = Label(self.resolution_frame, font=font_header, text="Screen Width and Height Calculator")
-        self.label_header.grid(row=0, column=1, columnspan=5, sticky="W",padx=10 ,pady=10)
+        self.label_size_result = Label(self.gui_size_frame, font=font_result, textvariable=self.size_result)
+        self.label_size_result.grid(row=4, column=0, columnspan=5, sticky="W", padx=10, pady=10)
 
-        self.screen_size = StringVar()
-        self.screen_ppi = StringVar()
-        self.screen_ratiox = StringVar()
-        self.screen_ratioy = StringVar()
-        self.result = StringVar()
+        self.demo_size()
 
-        self.label_size = Label(self.resolution_frame, font=font_label_input, text="Screen Size" )
-        self.label_size.grid(row=2, column=1, sticky="W",padx=10)
-        self.entry_size = Entry(self.resolution_frame, width=width_input, font=font_input, textvariable=self.screen_size )
-        self.entry_size.grid(row=3, column=1, sticky="N",padx=10)
+    def demo_size(self):
+        width = int(1920)
+        height = int(1080)
+        ppi = float(141)
 
-        self.label_ppi = Label(self.resolution_frame, font=font_label_input, text="Screen PPI")
-        self.label_ppi.grid(row=2, column=2, sticky="W",padx=10)
-        self.entry_ppi = Entry(self.resolution_frame, width=width_input, font=font_input, textvariable=self.screen_ppi )
-        self.entry_ppi.grid(row=3, column=2, sticky="N",padx=10)
+        self.size_screen_width.set(width)
+        self.size_screen_height.set(height)
+        self.size_screen_ppi.set(ppi)
 
-        self.label_ratiox = Label(self.resolution_frame, font=font_label_input, text="Ratio X")
-        self.label_ratiox.grid(row=2, column=3, sticky="W" ,padx=10)
-        self.entry_ratiox = Entry(self.resolution_frame, width=width_input, font=font_input, textvariable=self.screen_ratiox )
-        self.entry_ratiox.grid(row=3, column=3, sticky="N" ,padx=10)
+        size_float = PPI(width, height, ppi).get()
+        size_human = "%.1f" % size_float
+        result = "Screen Size:\t{}".format(size_human)
+        self.size_result.set(result)
 
-        self.label_ratioy = Label(self.resolution_frame, font=font_label_input, text="Ratio Y")
-        self.label_ratioy.grid(row=2, column=4, sticky="W" ,padx=10)
-        self.entry_ratioy = Entry(self.resolution_frame, width=width_input, font=font_input, textvariable=self.screen_ratioy )
-        self.entry_ratioy.grid(row=3, column=4, sticky="N" ,padx=10)
+    def screen_size_command(self):
+        width = int(self.size_screen_width.get())
+        height = int(self.size_screen_height.get())
+        ppi = float(self.size_screen_ppi.get())
 
-        self.entry_ratioy = Button(self.resolution_frame, width=width_input, height=1,  font=font_submit,
-                                   text="Submit", command=self.screen_width_and_height_command)
-        self.entry_ratioy.grid(row=3, column=5, sticky="N", padx=10)
-
-        self.label_resolution_result = Label(self.resolution_frame, font=font_result, textvariable=self.result )
-        self.label_resolution_result.grid(row=4, column=1, columnspan=5, sticky="W" ,padx=10,pady=10)
-
-        self.demo_resolution()
+        size_float = PPI(width, height, ppi).get()
+        size_human = "%.1f" % size_float
+        result = "Screen Size:\t{}".format(size_human)
+        self.size_result.set(result)
 
 
 
-    def demo_resolution(self):
-        self.screen_size.set(15.6)
-        self.screen_ppi.set(141)
-        self.screen_ratiox.set(16)
-        self.screen_ratioy.set(9)
+    def demo_dpi(self):
+
+        width = int(1920)
+        height = int(1080)
+        size = float(15.6)
+        zoom = int(1)
+
+        self.dpi_screen_width.set(width)
+        self.dpi_screen_height.set(height)
+        self.dpi_screen_size.set(size)
+        self.dpi_screen_zoom.set(zoom)
+
+        dpi_float = PPI(width, height, size,zoom).get()
+        dpi_human = "%.2f" % dpi_float
+        result = "DPI:\t{}".format(dpi_human)
+        self.dpi_result.set(result)
+
+    def screen_dpi_command(self):
+
+        width = int(self.dpi_screen_width.get())
+        height = int(self.dpi_screen_height.get())
+        size = float(self.dpi_screen_size.get())
+        zoom = float(self.dpi_screen_zoom.get())
+
+        dpi_float = PPI(width, height, size, zoom).get()
+        dpi_human = "%.2f" % dpi_float
+        result = "DPI:\t{}".format(dpi_human)
+        self.dpi_result.set(result)
+
+    def demo_side(self):
+        self.side_screen_size.set(15.6)
+        self.side_screen_ppi.set(141)
+        self.side_screen_ratiox.set(16)
+        self.side_screen_ratioy.set(9)
         demo = Resolution(15.6, 141.2, 16, 9)
         result= "Width: " + str( demo.get_width_pixels()) + " Pixels\t Height: " + str( demo.get_height_pixels())+" Pixels."
-        self.result.set( result )
+        self.side_result.set( result )
 
-    def screen_width_and_height_command(self):
+    def side_command(self):
 
         try:
             test = Resolution(
-                self.screen_size.get(),
-                self.screen_ppi.get(),
-                self.screen_ratiox.get(),
-                self.screen_ratioy.get()
+                self.side_screen_size.get(),
+                self.side_screen_ppi.get(),
+                self.side_screen_ratiox.get(),
+                self.side_screen_ratioy.get()
             )
             result = "Width: " + str(test.get_width_pixels()) + " Pixels\t Height: " + str(
                 test.get_height_pixels()) + " Pixels."
-            self.result.set(result)
+            self.side_result.set(result)
         except:
-            self.result.set("Error: Invalid input.")
+            self.side_result.set("Error: Invalid input.")
 
 
 
@@ -133,7 +290,7 @@ class ResolutionsGUI:
 
 def main( ):
     root = Tk()
-    my_gui = ResolutionsGUI(root)
+    my_gui = CSR_GUI(root)
     root.mainloop()
 
 if __name__ == "__main__":
