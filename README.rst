@@ -2,6 +2,8 @@
 Custom Screen Resolution
 ========================
 
+.. image:: https://snapcraft.io//custom-screen-resolution/badge.svg
+        :target: https://snapcraft.io/custom-screen-resolution
 
 .. image:: https://img.shields.io/pypi/v/custom_screen_resolution.svg
         :target: https://pypi.python.org/pypi/custom_screen_resolution
