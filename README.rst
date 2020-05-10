@@ -69,9 +69,9 @@ Features
 --------
 
 * Gui and Cli interface.
-* Calculate Width and height base on screen size, dpi and aspect ratio ( via cli and gui )
-* Calculate screen size base on resolution and dpi ( via cli)
-* Calculate screen size base on screen size and dpi and zoom level ( via cli)
+* Calculate Width and height base on screen size, dpi and aspect ratio
+* Calculate screen size base on resolution and dpi
+* Calculate screen size base on screen size and dpi and zoom level
 
 
 Credits

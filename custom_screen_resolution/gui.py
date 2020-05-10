@@ -303,7 +303,7 @@ class CSR_GUI:
         self.about_window.grid_rowconfigure(5, weight=1)
         self.about_window.grid_columnconfigure(0, weight=1)
 
-        self.about_link_doc = Label(self.about_window, text="Custom Screen Resolution version 0.1.4" )
+        self.about_link_doc = Label(self.about_window, text="Custom Screen Resolution version 1.5.0" )
         self.about_link_doc.grid(row=0, column=0, sticky="WN")
         self.about_link_doc.configure(padx=10, pady=10)
 
