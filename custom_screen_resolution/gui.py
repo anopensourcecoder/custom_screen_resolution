@@ -46,7 +46,7 @@ class CSR_GUI:
         main_form.config(menu=menu_bar)
 
         file_menu = Menu(menu_bar, tearoff=0)
-        file_menu.add_command(font=font_menu, label="About")
+        file_menu.add_command(font=font_menu, label="About",command=self.about_command)
         #file_menu.add_command(font=guifont, label="Save")
         #file_menu.add_command(font=guifont, label="Settings")
         #file_menu.add_command(font=guifont, label="Import")
@@ -213,14 +213,17 @@ class CSR_GUI:
         self.size_result.set(result)
 
     def screen_size_command(self):
-        width = int(self.size_screen_width.get())
-        height = int(self.size_screen_height.get())
-        ppi = float(self.size_screen_ppi.get())
+        try:
+            width = int(self.size_screen_width.get())
+            height = int(self.size_screen_height.get())
+            ppi = float(self.size_screen_ppi.get())
 
-        size_float = PPI(width, height, ppi).get()
-        size_human = "%.1f" % size_float
-        result = "Screen Size:\t{}".format(size_human)
-        self.size_result.set(result)
+            size_float = PPI(width, height, ppi).get()
+            size_human = "%.1f" % size_float
+            result = "Screen Size:\t{}".format(size_human)
+            self.size_result.set(result)
+        except:
+            self.size_result.set("Error: Invalid input.")
 
 
 
@@ -243,15 +246,18 @@ class CSR_GUI:
 
     def screen_dpi_command(self):
 
-        width = int(self.dpi_screen_width.get())
-        height = int(self.dpi_screen_height.get())
-        size = float(self.dpi_screen_size.get())
-        zoom = float(self.dpi_screen_zoom.get())
+        try:
+            width = int(self.dpi_screen_width.get())
+            height = int(self.dpi_screen_height.get())
+            size = float(self.dpi_screen_size.get())
+            zoom = float(self.dpi_screen_zoom.get())
 
-        dpi_float = PPI(width, height, size, zoom).get()
-        dpi_human = "%.2f" % dpi_float
-        result = "DPI:\t{}".format(dpi_human)
-        self.dpi_result.set(result)
+            dpi_float = PPI(width, height, size, zoom).get()
+            dpi_human = "%.2f" % dpi_float
+            result = "DPI:\t{}".format(dpi_human)
+            self.dpi_result.set(result)
+        except:
+            self.dpi_result.set("Error: Invalid input.")
 
     def demo_side(self):
         self.side_screen_size.set(15.6)
@@ -278,14 +284,69 @@ class CSR_GUI:
             self.side_result.set("Error: Invalid input.")
 
 
-
-
-    def display_resolution(self):
-        pass
-
     def quit_sofware(self, main_form):
         main_form.quit()
 
+    def about_command(self):
+
+
+        self.about_window = Tk()
+        self.about_window.geometry("312x324")
+        self.about_window.resizable(0, 0)
+        self.about_window.title("About")
+
+        self.about_window.grid_rowconfigure(0, weight=0)
+        self.about_window.grid_rowconfigure(1, weight=1)
+        self.about_window.grid_rowconfigure(2, weight=1)
+        self.about_window.grid_rowconfigure(3, weight=1)
+        self.about_window.grid_rowconfigure(4, weight=1)
+        self.about_window.grid_rowconfigure(5, weight=1)
+        self.about_window.grid_columnconfigure(0, weight=1)
+
+        self.about_link_doc = Label(self.about_window, text="Custom Screen Resolution version 0.1.4" )
+        self.about_link_doc.grid(row=0, column=0, sticky="WN")
+        self.about_link_doc.configure(padx=10, pady=10)
+
+        self.about_text = "" \
+                "This software helps to solve screen size and dpi problem with high dpi displays.\r\r" \
+                "This program is free software under GPL V3 \r\r" \
+                "Copyright (C) 2020  anopensourcecoder\r\r" \
+
+        self.about_messagearea = Message(self.about_window, width=300, text = self.about_text)
+
+        self.about_messagearea.grid(row=1, column=0,sticky="WN")
+        self.about_messagearea.configure(padx=10, pady=10)
+
+        self.about_link_doc = Label(self.about_window, text="Read Custom Screen Resolution’s document", fg="blue", cursor="hand2")
+        self.about_link_doc.grid(row=2, column=0, sticky="WN")
+        self.about_link_doc.configure(padx=10, pady=10)
+        self.about_link_doc.bind("<Button-1>", lambda e: self.link("https://custom-screen-resolution.readthedocs.io/en/latest/"))
+
+        self.about_link_github = Label(self.about_window, text="Visit Custom Screen Resolution on github", fg="blue",
+                                    cursor="hand2")
+        self.about_link_github.grid(row=3, column=0, sticky="WN")
+        self.about_link_github.configure(padx=10, pady=10)
+        self.about_link_github.bind("<Button-1>",
+                                 lambda e: self.link("https://github.com/anopensourcecoder/custom_screen_resolution"))
+
+
+
+        self.about_footer = Button( self.about_window, text="Close", command=lambda arg1=self.about_window: self.close_about_window(arg1))
+
+        self.about_footer.grid(row=4, column=0, sticky="")
+        self.about_footer.configure(padx=10, pady=10)
+
+        self.about_link_doc = Label(self.about_window, text=" ")
+        self.about_link_doc.grid(row=5, column=0, sticky="WN")
+        self.about_link_doc.configure(padx=10, pady=0)
+
+
+    def close_about_window(self, about_window):
+        about_window.destroy()
+
+    def link(self, url):
+        import webbrowser
+        webbrowser.open_new(url)
 
 
 def main( ):
