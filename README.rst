@@ -73,6 +73,15 @@ Features
 * Calculate screen size base on resolution and dpi
 * Calculate screen size base on screen size and dpi and zoom level
 
+How to install
+--------------
+Please install using Snapcraft.
+
+.. image:: https://snapcraft.io/static/images/badges/en/snap-store-black.svg
+        :target: https://snapcraft.io/custom-screen-resolution
+
+
+sudo snap install custom-screen-resolution
 
 Credits
 -------
