@@ -8,6 +8,7 @@
 from custom_screen_resolution.custom_screen_resolution import  PPI, Scale, Height, Resolution
 
 from tkinter import *
+import os
 
 class CSR_GUI:
 
@@ -27,7 +28,10 @@ class CSR_GUI:
         main_form.geometry("800x600")
         main_form.grid_rowconfigure(0, weight=1)
         main_form.grid_columnconfigure(0, weight=1)
-        logo = PhotoImage(file='logo.png')
+
+        ROOT_DIR = os.path.abspath(os.curdir)+'/custom_screen_resolution/'
+        #print(ROOT_DIR)
+        logo = PhotoImage(file=ROOT_DIR+'logo.png')
 
 
         #root.configure()
