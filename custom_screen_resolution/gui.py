@@ -172,13 +172,13 @@ class CSR_GUI:
         self.size_label_width = Label(self.gui_size_frame, font=font_label_input, text="Screen Width")
         self.size_label_width.grid(row=2, column=0, sticky="W", padx=10)
         self.size_entry_width = Entry(self.gui_size_frame, width=width_input, font=font_input,
-                                 textvariable=self.dpi_screen_width)
+                                 textvariable=self.size_screen_width)
         self.size_entry_width.grid(row=3, column=0, sticky="W", padx=10)
 
         self.size_label_height = Label(self.gui_size_frame, font=font_label_input, text="Screen Height")
         self.size_label_height.grid(row=2, column=1, sticky="W", padx=10)
         self.size_entry_height = Entry(self.gui_size_frame, width=width_input, font=font_input,
-                                  textvariable=self.dpi_screen_height)
+                                  textvariable=self.size_screen_height)
         self.size_entry_height.grid(row=3, column=1, sticky="W", padx=10)
 
         self.size_label_ppi = Label(self.gui_size_frame, font=font_label_input, text="Screen PPI")
