@@ -27,6 +27,7 @@ class CSR_GUI:
         main_form.geometry("800x600")
         main_form.grid_rowconfigure(0, weight=1)
         main_form.grid_columnconfigure(0, weight=1)
+        logo = PhotoImage(file='logo.png')
 
 
         #root.configure()
