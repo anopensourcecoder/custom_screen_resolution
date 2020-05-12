@@ -39,6 +39,9 @@ setup(
             'custom_screen_resolution_gui=custom_screen_resolution.gui:main',
         ]
     },
+    package_data = {
+        '': ['*.png'],
+    },
     install_requires=requirements,
     license="GNU General Public License v3",
     long_description=readme + '\n\n' + history,

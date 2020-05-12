@@ -29,9 +29,10 @@ class CSR_GUI:
         main_form.grid_rowconfigure(0, weight=1)
         main_form.grid_columnconfigure(0, weight=1)
 
-        ROOT_DIR = os.path.abspath(os.curdir)+'/custom_screen_resolution/'
+        #ROOT_DIR = os.path.abspath(os.curdir)+'/custom_screen_resolution/'
+        ROOT_DIR = os.path.dirname(__file__)
         #print(ROOT_DIR)
-        logo = PhotoImage(file=ROOT_DIR+'logo.png')
+        logo = PhotoImage(file=ROOT_DIR+'/logo.png')
 
 
         #root.configure()
