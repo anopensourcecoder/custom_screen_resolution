@@ -25,7 +25,8 @@ class CSR_GUI:
         font_submit = "Arial 11"
         font_result = "Arial 16"
         main_form.title("Custom Screen Resolution GUI")
-        main_form.geometry("800x600")
+        #main_form.geometry("800x600")
+        main_form.minsize(800,600)
         main_form.grid_rowconfigure(0, weight=1)
         main_form.grid_columnconfigure(0, weight=1)
 
@@ -49,11 +50,11 @@ class CSR_GUI:
 
 
         # menu
-        menu_bar = Menu(main_form)
-        main_form.config(menu=menu_bar)
+        self.menu_bar = Menu(main_form)
+        main_form.config(menu=self.menu_bar)
 
-        file_menu = Menu(menu_bar, tearoff=0)
-        file_menu.add_command(font=font_menu, label="About",command=self.about_command)
+        self.file_menu = Menu(self.menu_bar, tearoff=0)
+        self.file_menu.add_command(font=font_menu, label="About",command=self.about_command)
         #file_menu.add_command(font=guifont, label="Save")
         #file_menu.add_command(font=guifont, label="Settings")
         #file_menu.add_command(font=guifont, label="Import")
@@ -61,9 +62,12 @@ class CSR_GUI:
 
 
 
-        file_menu.add_separator()
-        file_menu.add_command(font=font_menu, label="Exit", command=lambda arg1=main_form: self.quit_sofware(arg1))
-        menu_bar.add_cascade(font=font_menu, label="Menu", menu=file_menu)
+        self.file_menu.add_separator()
+        self.file_menu.add_command(font=font_menu, label="Exit",  underline=1, accelerator='Alt-X',
+                              command=lambda arg1=main_form: self.quit(arg1))
+        self.menu_bar.add_cascade(font=font_menu, label="Menu", menu=self.file_menu,underline=0, accelerator='Alt-m')
+
+        self.menu_bar.bind_all("<Alt-x>", self.quit)
 
         # ------- Header frame -----------------
         self.gui_header_frame = Frame(main_frame, height=30)
@@ -297,8 +301,12 @@ class CSR_GUI:
             self.side_result.set("Error: Invalid input.")
 
 
-    def quit_sofware(self, main_form):
-        main_form.quit()
+    #def quit_sofware(self, main_form):
+    #    main_form.quit()
+
+    def quit(self, event):
+        #print("quitting...")
+        sys.exit(0)
 
     def about_command(self):
 
