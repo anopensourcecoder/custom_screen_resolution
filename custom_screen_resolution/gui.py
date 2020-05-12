@@ -32,7 +32,8 @@ class CSR_GUI:
         #ROOT_DIR = os.path.abspath(os.curdir)+'/custom_screen_resolution/'
         ROOT_DIR = os.path.dirname(__file__)
         #print(ROOT_DIR)
-        logo = PhotoImage(file=ROOT_DIR+'/logo.png')
+
+        #logo = PhotoImage(logo.png')
 
 
         #root.configure()
@@ -67,8 +68,14 @@ class CSR_GUI:
         # ------- Header frame -----------------
         self.gui_header_frame = Frame(main_frame, height=30)
         self.gui_header_frame.grid(row=0, column=1)
-        self.gui_header_title = Label(self.gui_header_frame, text="Welcome to Custom Screen Resolution!", font=font_header_title)
-        self.gui_header_title.grid(row=0, column=0, sticky="W", pady=20)
+
+        self.logo = PhotoImage(file=ROOT_DIR + '/logo32.png')
+        self.gui_header_logo = Button(self.gui_header_frame, width=32, height=32 ,
+                                      text="",image=self.logo, compound = LEFT, command = self.logo_command )
+        self.gui_header_logo.grid(row=0, column=0, sticky="")
+        self.gui_header_title = Label(self.gui_header_frame, text="Welcome to Custom Screen Resolution!",
+                                      font=font_header_title)
+        self.gui_header_title.grid(row=0, column=1, sticky="W", padx=20, pady=20)
 
         #------------side--------------
         self.side_frame = LabelFrame(main_frame,text="Calculate Width and height base on screen size, dpi and aspect ratio"
@@ -346,7 +353,8 @@ class CSR_GUI:
         self.about_link_doc.grid(row=5, column=0, sticky="WN")
         self.about_link_doc.configure(padx=10, pady=0)
 
-
+    def logo_command(self):
+        print("I am logo command!")
     def close_about_window(self, about_window):
         about_window.destroy()
 
