@@ -82,10 +82,10 @@ class CSR_GUI:
         self.gui_header_title.grid(row=0, column=1, sticky="W", padx=20, pady=20)
 
         #------------side--------------
-        self.side_frame = LabelFrame(main_frame,text="Calculate Width and height base on screen size, dpi and aspect ratio"
+        self.side_frame = LabelFrame(main_frame,text="Calculate Resolution base on Screen size, PPI and Aspect ratio"
                                      ,borderwidth=4, font=font_header )
         self.side_frame.grid(row=1, column=1, sticky="WNE")
-        #self.side_frame.configure(padx=0, pady=10)
+        self.side_frame.configure(padx=0, pady=10)
         #self.side_frame.configure( background = '#bbaaaa')
 
         self.side_screen_size = StringVar()
@@ -128,7 +128,7 @@ class CSR_GUI:
         self.gui_empty_frame2.grid(row=2, column=1 )
 
         #--------dpi-----------------------
-        self.gui_dpi_frame = LabelFrame(main_frame,text="Calculate screen size base on screen size and dpi and zoom level"
+        self.gui_dpi_frame = LabelFrame(main_frame,text="Calculate PPI base on Resolution, Screen size and Zoom level"
                                         , borderwidth=4, font=font_header)
         self.gui_dpi_frame.grid(row=3, column=1, sticky="WNE")
         self.gui_dpi_frame.configure(padx=0, pady=10)
@@ -175,7 +175,7 @@ class CSR_GUI:
         self.gui_empty_frame3.grid(row=4, column=1)
 
         # --------size-----------------------
-        self.gui_size_frame = LabelFrame(main_frame,text="Calculate screen size base on resolution and ppi"
+        self.gui_size_frame = LabelFrame(main_frame,text="Calculate Screen size base on Resolution and PPI"
                                         , borderwidth=4, font=font_header)
         self.gui_size_frame.grid(row=5, column=1, sticky="WNE")
         self.gui_size_frame.configure(padx=0, pady=10)
@@ -329,7 +329,7 @@ class CSR_GUI:
         self.about_link_doc.configure(padx=10, pady=10)
 
         self.about_text = "" \
-                "This software helps to solve screen size and dpi problem with high dpi displays.\r\r" \
+                "This software helps to solve screen size and PPI problem with high PPI displays.\r\r" \
                 "This program is free software under GPL V3 \r\r" \
                 "Copyright (C) 2020  anopensourcecoder\r\r" \
 
