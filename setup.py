@@ -39,9 +39,6 @@ setup(
             'custom_screen_resolution_gui=custom_screen_resolution.gui:main',
         ]
     },
-    package_data = {
-        '': ['*.png'],
-    },
     install_requires=requirements,
     license="GNU General Public License v3",
     long_description=readme + '\n\n' + history,
@@ -49,6 +46,9 @@ setup(
     keywords='custom_screen_resolution',
     name='custom_screen_resolution',
     packages=find_packages(include=['custom_screen_resolution', 'custom_screen_resolution.*']),
+    package_data = {
+        'custom_screen_resolution': ['*.png'],
+    },
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
