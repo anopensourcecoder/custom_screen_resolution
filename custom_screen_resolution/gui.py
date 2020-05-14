@@ -6,6 +6,7 @@
 
 
 from custom_screen_resolution.custom_screen_resolution import  PPI, Scale, Height, Resolution
+from . import __version__
 
 from tkinter import *
 import os
@@ -14,6 +15,8 @@ class CSR_GUI:
 
 
     def __init__(self, main_form):
+
+
         #print("ResolutionsGUI init")
         font_gui = "Arial 11"
         font_menu = "Arial 13"
@@ -338,11 +341,12 @@ class CSR_GUI:
         #self.about_link_doc.configure(padx=10, pady=10)
 
         self.about_text = "" \
+                "Custom Screen Resolution version "+ str(__version__) +"  \r\r" \
                 "This software helps to solve screen size and PPI problem with high PPI displays.\r\r" \
                 "This program is free software under GPL V3 \r\r" \
-                "Copyright (C) 2020  anopensourcecoder\r\r" \
+                "Copyright (C) 2020  anopensourcecoder" \
 
-        self.about_messagearea = Message(self.about_window, width=300, text = self.about_text)
+        self.about_messagearea = Message(self.about_window, width=460, text = self.about_text)
 
         self.about_messagearea.grid(row=1, column=0,sticky="WN")
         self.about_messagearea.configure(padx=10, pady=10)
@@ -364,7 +368,7 @@ class CSR_GUI:
         self.about_footer = Button( self.about_window, text="Close", command=lambda arg1=self.about_window: self.close_about_window(arg1))
 
         self.about_footer.grid(row=4, column=0, sticky="")
-        self.about_footer.configure(padx=10, pady=10)
+        self.about_footer.configure(padx=10, pady=10 )
 
         self.about_link_doc = Label(self.about_window, text=" ")
         self.about_link_doc.grid(row=5, column=0, sticky="WN")
