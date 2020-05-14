@@ -311,8 +311,9 @@ class CSR_GUI:
     def about_command(self):
 
 
-        self.about_window = Tk()
-        self.about_window.geometry("312x324")
+
+        self.about_window = Toplevel()
+        self.about_window.geometry("480x480")
         self.about_window.resizable(0, 0)
         self.about_window.title("About")
 
@@ -324,9 +325,17 @@ class CSR_GUI:
         self.about_window.grid_rowconfigure(5, weight=1)
         self.about_window.grid_columnconfigure(0, weight=1)
 
-        self.about_link_doc = Label(self.about_window, text="Custom Screen Resolution version 1.5.0" )
-        self.about_link_doc.grid(row=0, column=0, sticky="WN")
+        self.ROOT_DIR = os.path.dirname(__file__)
+        self.bannerabout = PhotoImage(file=self.ROOT_DIR + '/banner480x160.png')
+
+
+        self.about_link_doc = Label(self.about_window, image=self.bannerabout, width=480, height=160)
+        self.about_link_doc.grid(row=0, column=0, sticky="")
         self.about_link_doc.configure(padx=10, pady=10)
+
+        #self.about_link_doc = Label(self.about_window, text="Custom Screen Resolution version 1.5.0" )
+        #self.about_link_doc.grid(row=0, column=0, sticky="WN")
+        #self.about_link_doc.configure(padx=10, pady=10)
 
         self.about_text = "" \
                 "This software helps to solve screen size and PPI problem with high PPI displays.\r\r" \
@@ -362,7 +371,8 @@ class CSR_GUI:
         self.about_link_doc.configure(padx=10, pady=0)
 
     def logo_command(self):
-        print("I am logo command!")
+        self.about_command()
+
     def close_about_window(self, about_window):
         about_window.destroy()
 
