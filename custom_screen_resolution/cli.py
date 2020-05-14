@@ -7,7 +7,7 @@ from custom_screen_resolution.custom_screen_resolution import  PPI, Scale, Heigh
 @click.version_option()
 #@click.command()
 def main():
-    """Welcome custom_screen_resolution console version.
+    """Welcome custom-screen-resolution console version.
     """
     #click.echo("Enjoy!")
     return 0

@@ -5,3 +5,6 @@ __email__ = 'anopensourcecoder@gmail.com'
 __version__ = '1.6.0'
 __all__ = ["custom_screen_resolution"]
 
+
+#https://packaging.python.org/guides/single-sourcing-package-version/
+
