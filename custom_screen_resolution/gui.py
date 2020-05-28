@@ -261,7 +261,7 @@ class CSR_GUI:
 
         dpi_float = PPI(width, height, size,zoom).get()
         dpi_human = "%.2f" % dpi_float
-        result = "DPI:\t{}".format(dpi_human)
+        result = "PPI:\t{}".format(dpi_human)
         self.dpi_result.set(result)
 
     def screen_dpi_command(self):
@@ -274,7 +274,7 @@ class CSR_GUI:
 
             dpi_float = PPI(width, height, size, zoom).get()
             dpi_human = "%.2f" % dpi_float
-            result = "DPI:\t{}".format(dpi_human)
+            result = "PPI:\t{}".format(dpi_human)
             self.dpi_result.set(result)
         except:
             self.dpi_result.set("Error: Invalid input.")
@@ -386,7 +386,7 @@ class CSR_GUI:
 
 
 def main( ):
-    root = Tk()
+    root = Tk(className='Custom Screen Resolution')
     my_gui = CSR_GUI(root)
     root.mainloop()
 

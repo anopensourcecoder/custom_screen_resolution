@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Custom Screen Resolution GUI
+Comment=GUI version of Custom Screen Resolution
+Exec=custom-screen-resolution.gui
+Icon=${SNAP}/meta/gui/custom-screen-resolution.png
+StartupNotify=true
+Categories=Application;Utility;Other;
+Type=Application

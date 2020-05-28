@@ -32,7 +32,7 @@ setup_requirements = ['pytest-runner', ]
 test_requirements = ['pytest>=3', ]
 
 setup(
-    author="anopensourcecoder",
+    author="anopenlife",
     author_email='anopensourcecoder@gmail.com',
     python_requires='>=3.6',
     classifiers=[
@@ -48,10 +48,10 @@ setup(
     description="Create custom resolution base on screen size and more.",
     entry_points={
         'console_scripts': [
-            'custom_screen_resolution=custom_screen_resolution.cli:main',
+            'custom-screen-resolution=custom_screen_resolution.cli:main',
         ],
         'gui_scripts': [
-            'custom_screen_resolution_gui=custom_screen_resolution.gui:main',
+            'gui=custom_screen_resolution.gui:main',
         ]
     },
     install_requires=requirements,
