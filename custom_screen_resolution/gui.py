@@ -227,8 +227,8 @@ class CSR_GUI:
         self.size_screen_height.set(height)
         self.size_screen_ppi.set(ppi)
 
-        size_float = PPI(width, height, ppi).get()
-        size_human = "%.1f" % size_float
+        ppi = PPI(width, height, ppi)
+        size_human = "%.1f" % ppi.get_ppi()
         result = "Screen Size:\t{}".format(size_human)
         self.size_result.set(result)
 
@@ -238,8 +238,8 @@ class CSR_GUI:
             height = int(self.size_screen_height.get())
             ppi = float(self.size_screen_ppi.get())
 
-            size_float = PPI(width, height, ppi).get()
-            size_human = "%.1f" % size_float
+            ppi = PPI(width, height, ppi)
+            size_human = "%.1f" % ppi.get_ppi()
             result = "Screen Size:\t{}".format(size_human)
             self.size_result.set(result)
         except:
@@ -249,19 +249,20 @@ class CSR_GUI:
 
     def demo_dpi(self):
 
-        width = int(1920)
-        height = int(1080)
+        width = int(3840)
+        height = int(2160)
         size = float(15.6)
-        zoom = int(1)
+        zoom = int(2)
 
         self.dpi_screen_width.set(width)
         self.dpi_screen_height.set(height)
         self.dpi_screen_size.set(size)
         self.dpi_screen_zoom.set(zoom)
 
-        dpi_float = PPI(width, height, size,zoom).get()
-        dpi_human = "%.2f" % dpi_float
-        result = "DPI:\t{}".format(dpi_human)
+        ppi = PPI(width, height, size,zoom)
+        ppi_human = "%.2f" % ppi.get_ppi()
+        effective_resolution = ppi.get_effective_resolution()
+        result = "PPI: {}".format(ppi_human) + "\t Effective Resolution: " + effective_resolution
         self.dpi_result.set(result)
 
     def screen_dpi_command(self):
@@ -272,9 +273,10 @@ class CSR_GUI:
             size = float(self.dpi_screen_size.get())
             zoom = float(self.dpi_screen_zoom.get())
 
-            dpi_float = PPI(width, height, size, zoom).get()
-            dpi_human = "%.2f" % dpi_float
-            result = "DPI:\t{}".format(dpi_human)
+            ppi = PPI(width, height, size, zoom)
+            ppi_human = "%.2f" % ppi.get_ppi()
+            effective_resolution = ppi.get_effective_resolution()
+            result = "PPI: {}".format(ppi_human) + "\t Effective Resolution: " + effective_resolution
             self.dpi_result.set(result)
         except:
             self.dpi_result.set("Error: Invalid input.")
@@ -386,7 +388,7 @@ class CSR_GUI:
 
 
 def main( ):
-    root = Tk()
+    root = Tk(className='Custom Screen Resolution')
     my_gui = CSR_GUI(root)
     root.mainloop()
 

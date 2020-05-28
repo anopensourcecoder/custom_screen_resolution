@@ -126,3 +126,11 @@ $ git push
 $ git push --tags
 
 Travis will then deploy to PyPI if tests pass.
+
+Generating docs
+---------------
+
+Generate doc with::
+
+    $ pip3 install sphinx
+    $ make docs
