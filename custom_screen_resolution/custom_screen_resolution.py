@@ -7,11 +7,17 @@ class PPI():
         self.size=size
         self.scale=scale
 
-    def get(self):
+    def get_ppi(self):
         dpx2 =  self.x**2  + self.y**2
         dpx =  math.sqrt(dpx2)
         ppi = (  dpx / self.size ) / self.scale
         return ppi
+
+    def get_effective_resolution(self):
+        dpx2 =  self.x**2  + self.y**2
+        dpx =  math.sqrt(dpx2)
+        resolution = (  str( int( self.x / self.scale) )  + "x" +  str( int( self.y / self.scale)) )
+        return resolution
 
     def display(self):
         print( str(self.x)+"x"+ str(self.y)+"\t*"+str(self.size)+"\t/"+str(self.scale) + "\t%.2f" % self.get())

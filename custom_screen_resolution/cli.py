@@ -85,9 +85,14 @@ def screen_dpi(width, height, size, zoom,xrandr):
     from custom_screen_resolution.custom_screen_resolution import PPI, Scale, Height, Resolution
 
 
-    dpi_float = PPI(width, height, size, zoom).get()
-    dpi_human = "%.2f" % dpi_float
+    ppi = PPI(width, height, size, zoom)
+
+    dpi_human = "%.2f" % ppi.get_ppi()
+
+    effective_resolution = ppi.get_effective_resolution()
+
     click.echo("DPI:\t{}".format(dpi_human))
+    click.echo("Effective Resolution:\t{}".format(effective_resolution))
 
 
 
