@@ -4,6 +4,26 @@
 Installation
 ============
 
+From Snap Store
+---------------
+
+Get it from Snap store at  https://snapcraft.io/custom-screen-resolution
+
+
+.. image:: https://snapcraft.io/static/images/badges/en/snap-store-black.svg
+        :target: https://snapcraft.io/custom-screen-resolution
+
+
+
+
+To install Custom Screen Resolution, run this command in your terminal:
+
+.. code-block:: console
+
+     $ snap install custom-screen-resolution
+
+This is the preferred method to install Custom Screen Resolution, as it will always install the most recent stable release.
+
 
 Stable release
 --------------

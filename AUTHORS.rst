@@ -5,7 +5,7 @@ Credits
 Development Lead
 ----------------
 
-* anopensourcecoder <anopensourcecoder@gmail.com>
+* anopenlife  <anopensourcecoder@gmail.com>
 
 Contributors
 ------------

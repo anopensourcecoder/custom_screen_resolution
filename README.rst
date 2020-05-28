@@ -77,13 +77,14 @@ Features
 
 How to install
 --------------
-Please install using Snapcraft.
 
 .. image:: https://snapcraft.io/static/images/badges/en/snap-store-black.svg
         :target: https://snapcraft.io/custom-screen-resolution
 
 
-sudo snap install custom-screen-resolution
+Please install using Snapcraft::
+
+    $ snap install custom-screen-resolution
 
 Credits
 -------
