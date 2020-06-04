@@ -74,7 +74,12 @@ def screen_dpi(width, height, dpi):
               default="HDMI1",
               help="Video Port Name such as HDMI1 or DP-1 or eDP and so on.")
 
-def screen_ppi(width, height, size, zoom,port, xrandr):
+@click.option("--rotate",
+            type=str,
+              default="normal",
+              help="Screen rotation such as normal or right")
+
+def screen_ppi(width, height, size, zoom,port, rotate, xrandr):
     """Calculate screen size base on screen size and dpi and zoom level.
 
     \b
@@ -117,7 +122,7 @@ def screen_ppi(width, height, size, zoom,port, xrandr):
 
 
     if xrandr==True:
-        screen_info = Screen_Info(width, height, port, zoom)
+        screen_info = Screen_Info(width, height, port, zoom,rotate)
         # w = screen_info.get_screen_width()
         # h = screen_info.get_screen_height()
 

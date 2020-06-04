@@ -116,7 +116,7 @@ class Screen_Info():
         self.height = height
         self.video_port = video_port
         self.zoom = zoom
-        self.rotate = rotate
+        self.rotate = str( rotate)
         self.generate()
 
     def generate(self):
