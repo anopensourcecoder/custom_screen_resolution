@@ -1,4 +1,9 @@
 import math
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+from subprocess import call,check_output
+#import screeninfo
+#from screeninfo import get_monitors
 
 class PPI():
     def __init__(self,x,y,size,scale=1):
@@ -105,3 +110,59 @@ class Resolution( ):
               + "\t%.0f" % self.width_pixels + "x%.0f" % self.height_pixels )
 
 
+class Screen_Info():
+    def  __init__(self,width,height,video_port="HDMI1",zoom=1,rotate="normal"):
+        self.width = width
+        self.height = height
+        self.video_port = video_port
+        self.zoom = zoom
+        self.rotate = rotate
+        self.generate()
+
+    def generate(self):
+
+        #if self.monitors is not None:
+        #    monitor=self.monitors[0]
+        #    x = monitor.x
+        #    x = monitor.x
+        #    width = monitor.width
+        #    height = monitor.height
+        #    # width_mm = monitor.width_mm
+        #    # height_mm = monitor.height_mm
+        #    name = monitor.name
+
+        #    print(name)
+        #ROOT_DIR = os.path.dirname(__file__)
+
+        cvt_output= check_output(["cvt", str( self.width), str(self.height) ])
+        cvt_str = cvt_output.decode('UTF-8').splitlines()[1]
+        cvt_split = cvt_str.split(" ", 2)
+        # example ['Modeline', '"1928x1080_60.00"', ' 173.50  1928 2056 2256 2584  1080 1083 1093 1120 -hsync +vsync']
+        self.Modeline = cvt_split[0]
+        self.name = cvt_split[1]
+        self.cvt = cvt_split[2]
+        self.xrandr_new_mode = 'xrandr --newmode '+self.name  + self.cvt
+        self.xrandr_add_mode = 'xrandr --addmode '+self.video_port+ ' ' +self.name
+
+        self.xrandr_activate_mode = 'xrandr --output ' + str(self.video_port) + ' --mode ' + self.name + ' --rotate ' + self.rotate
+
+        if self.zoom!=1:
+            scale = round ( 1/self.zoom ,1)
+            self.xrandr_activate_mode = self.xrandr_activate_mode + ' --scale '+str(scale)+'x'+str(scale)+' --filter nearest'
+
+
+        #print( self.Modeline,self.name,self.cvt )
+        #print( self.xrandr_new_mode )
+        #print(self.xrandr_add_mode)
+        #print(self.xrandr_activate_mode)
+
+        return (self.xrandr_new_mode,)
+
+    def get_xrandr_new_mode(self):
+        return self.xrandr_new_mode
+
+    def get_xrandr_add_mode(self):
+        return self.xrandr_add_mode
+
+    def get_xrandr_activate_mode(self):
+        return self.xrandr_activate_mode

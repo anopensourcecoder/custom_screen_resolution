@@ -5,11 +5,12 @@
 #    from resolutions import  PPI, Scale, Height, Resolution
 
 
-from custom_screen_resolution.custom_screen_resolution import  PPI, Scale, Height, Resolution
+from custom_screen_resolution.custom_screen_resolution import  PPI, Scale, Height, Resolution,Screen_Info
 from . import __version__
 
 from tkinter import *
 import os
+from subprocess import call,check_output
 
 class CSR_GUI:
 
@@ -20,16 +21,16 @@ class CSR_GUI:
         #print("ResolutionsGUI init")
         font_gui = "Arial 11"
         font_menu = "Arial 13"
-        font_header_title = "Arial 20"
+        font_header_title = "Arial 24"
         font_header = "Arial 15"
         font_label_input = "Arial 10"
         font_input = "Arial 16"
         width_input = 7
         font_submit = "Arial 11"
-        font_result = "Arial 16"
+        font_result = "Arial 13"
         main_form.title("Custom Screen Resolution GUI")
-        #main_form.geometry("800x600")
-        main_form.minsize(800,600)
+        main_form.geometry("960x600")
+        main_form.minsize(960,600)
         main_form.grid_rowconfigure(0, weight=1)
         main_form.grid_columnconfigure(0, weight=1)
 
@@ -63,8 +64,6 @@ class CSR_GUI:
         #file_menu.add_command(font=guifont, label="Import")
         #file_menu.add_command(font=guifont, label="Export")
 
-
-
         self.file_menu.add_separator()
         self.file_menu.add_command(font=font_menu, label="Exit",  underline=1, accelerator='Alt-X',
                               command=lambda arg1=main_form: self.quit(arg1))
@@ -90,6 +89,11 @@ class CSR_GUI:
         self.side_frame.grid(row=1, column=1, sticky="WNE")
         self.side_frame.configure(padx=0, pady=10)
         #self.side_frame.configure( background = '#bbaaaa')
+        self.side_frame.grid_columnconfigure(0, minsize=100, weight=0)
+        self.side_frame.grid_columnconfigure(1, minsize=100, weight=0)
+        self.side_frame.grid_columnconfigure(2, minsize=100, weight=0)
+        self.side_frame.grid_columnconfigure(3, minsize=100, weight=0)
+        self.side_frame.grid_columnconfigure(4, minsize=200, weight=0)
 
         self.side_screen_size = StringVar()
         self.side_screen_ppi = StringVar()
@@ -118,8 +122,8 @@ class CSR_GUI:
         self.side_entry_ratioy.grid(row=3, column=3, sticky="W" ,padx=10)
 
         self.side_entry_ratioy = Button(self.side_frame, width=width_input, height=1,  font=font_submit,
-                                   text="Submit", command=self.side_command)
-        self.side_entry_ratioy.grid(row=3, column=4, sticky="W", padx=10)
+                                   text="Calculate", command=self.side_command)
+        self.side_entry_ratioy.grid(row=3, column=4, sticky="WE", padx=10)
 
         self.side_label_result = Label(self.side_frame, font=font_result, textvariable=self.side_result )
         self.side_label_result.grid(row=4, column=0, columnspan=5, sticky="W" ,padx=10,pady=10)
@@ -133,9 +137,14 @@ class CSR_GUI:
         #--------dpi-----------------------
         self.gui_dpi_frame = LabelFrame(main_frame,text="Calculate PPI base on Resolution, Screen size and Zoom level"
                                         , borderwidth=4, font=font_header)
-        self.gui_dpi_frame.grid(row=3, column=1, sticky="WNE")
+        self.gui_dpi_frame.grid(row=3, column=1, sticky="WE")
         self.gui_dpi_frame.configure(padx=0, pady=10)
-        #self.gui_dpi_frame.configure(background='#aabbaa')
+
+        self.gui_dpi_frame.grid_columnconfigure(0, minsize=100, weight=0)
+        self.gui_dpi_frame.grid_columnconfigure(1, minsize=100, weight=0)
+        self.gui_dpi_frame.grid_columnconfigure(2, minsize=100, weight=0)
+        self.gui_dpi_frame.grid_columnconfigure(3, minsize=100, weight=0)
+        self.gui_dpi_frame.grid_columnconfigure(4, minsize=200, weight=0)
 
         self.dpi_screen_width = StringVar()
         self.dpi_screen_height = StringVar()
@@ -165,11 +174,15 @@ class CSR_GUI:
         self.entry_zoom.grid(row=3, column=3, sticky="W", padx=10)
 
         self.entry_dpi_submit = Button(self.gui_dpi_frame, width=width_input, height=1, font=font_submit,
-                                   text="Submit", command=self.screen_dpi_command)
-        self.entry_dpi_submit.grid(row=3, column=4, sticky="W", padx=10)
+                                   text="Calculate", command=self.screen_dpi_command)
+        self.entry_dpi_submit.grid(row=3, column=4, sticky="WE", padx=10)
 
         self.label_dpi_result = Label(self.gui_dpi_frame, font=font_result, textvariable=self.dpi_result)
-        self.label_dpi_result.grid(row=4, column=0, columnspan=5, sticky="W", padx=10, pady=10)
+        self.label_dpi_result.grid(row=4, column=0, columnspan=4, sticky="W", padx=10, pady=10)
+
+        self.button_xrandr = Button(self.gui_dpi_frame, width=width_input, height=1, font=font_submit,
+                                   text="Generate Xrandr", command=self.window_xrandr_command )
+        self.button_xrandr.grid(row=4, column=4,  sticky="WE", padx=10, pady=10)
 
         self.demo_dpi()
 
@@ -182,6 +195,12 @@ class CSR_GUI:
                                         , borderwidth=4, font=font_header)
         self.gui_size_frame.grid(row=5, column=1, sticky="WNE")
         self.gui_size_frame.configure(padx=0, pady=10)
+
+        self.gui_size_frame.grid_columnconfigure(0, minsize=100, weight=0)
+        self.gui_size_frame.grid_columnconfigure(1, minsize=100, weight=0)
+        self.gui_size_frame.grid_columnconfigure(2, minsize=100, weight=0)
+        self.gui_size_frame.grid_columnconfigure(3, minsize=100, weight=0)
+        self.gui_size_frame.grid_columnconfigure(4, minsize=200, weight=0)
 
         self.size_screen_width = StringVar()
         self.size_screen_height = StringVar()
@@ -210,8 +229,8 @@ class CSR_GUI:
 
 
         self.entry_size_submit = Button(self.gui_size_frame, width=width_input, height=1, font=font_submit,
-                                       text="Submit", command=self.screen_size_command)
-        self.entry_size_submit.grid(row=3, column=4, sticky="W", padx=10)
+                                       text="Calculate", command=self.screen_size_command)
+        self.entry_size_submit.grid(row=3, column=4, sticky="WE", padx=10)
 
         self.label_size_result = Label(self.gui_size_frame, font=font_result, textvariable=self.size_result)
         self.label_size_result.grid(row=4, column=0, columnspan=5, sticky="W", padx=10, pady=10)
@@ -281,6 +300,7 @@ class CSR_GUI:
         except:
             self.dpi_result.set("Error: Invalid input.")
 
+
     def demo_side(self):
         self.side_screen_size.set(15.6)
         self.side_screen_ppi.set(141)
@@ -313,8 +333,135 @@ class CSR_GUI:
         #print("quitting...")
         sys.exit(0)
 
-    def about_command(self):
+    def window_xrandr_command(self):
+        self.font_gui = "Dejavu 12"
+        self.font_header = "Arial 15"
+        self.font_label = "Arial 12"
+        self.font_entry = "Arial 14"
+        self.font_submit = "Arial 12"
+        self.xrandr_window = Toplevel()
+        self.xrandr_window.geometry("800x600")
+        self.xrandr_window.resizable(0, 0)
+        self.xrandr_window.title("Generate custom screen resolution ")
 
+        self.xrandr_window.grid_columnconfigure(0, minsize=100, weight=1)
+
+        self.step1_frame = LabelFrame(self.xrandr_window, text="Step 1: Settings"
+                                     , borderwidth=4, font=self.font_header)
+        self.step1_frame.grid(row=0, column=0, sticky="WNE", padx=20,pady=15)
+        self.step1_frame.configure( pady=10)
+
+        self.step1_frame.grid_columnconfigure(0, minsize=100, weight=1)
+        self.step1_frame.grid_columnconfigure(1, minsize=100, weight=1)
+        self.step1_frame.grid_columnconfigure(2, minsize=100, weight=1)
+        self.step1_frame.grid_columnconfigure(3, minsize=100, weight=1)
+
+        self.xrandr_port_variable = StringVar()
+        self.xrandr_port_variable.set("HDMI-1")
+
+        self.xrandr_port_label = Label(self.step1_frame,font=self.font_label, text="Video port name")
+        self.xrandr_port_label.grid(row=1, column=0, sticky="W", padx=10 , pady=5)
+
+        self.xrandr_port_entry = Entry(self.step1_frame, font=self.font_entry, width=15, text=self.xrandr_port_variable )
+        self.xrandr_port_entry.grid(row=1, column=1, sticky="W", padx=10)
+
+        self.xrandr_rotate_variable =  StringVar()
+        self.xrandr_rotate_variable.set("normal")
+
+        self.xrandr_rotate_label = Label(self.step1_frame,  font=self.font_label, text="Display rotation", justify = LEFT )
+        self.xrandr_rotate_label.grid(row=2, column=0, sticky="W", padx=10 , pady=5)
+
+        self.xrandr_rotate_radio1 = Radiobutton(self.step1_frame, font=self.font_label, text="Normal",
+                                               variable=self.xrandr_rotate_variable,
+                                                value="normal")
+        self.xrandr_rotate_radio1.grid(row=2, column=1, sticky="W", padx=5)
+
+        self.xrandr_rotate_radio2 = Radiobutton(self.step1_frame, font=self.font_label, text="Right",
+                                               variable=self.xrandr_rotate_variable,
+                                               value="right")
+        self.xrandr_rotate_radio2.grid(row=2, column=1, sticky="W", padx=100)
+
+        self.xrandr_apply_button = Button(self.step1_frame,width=10, font=self.font_submit, text="Apply Settings", command=self.xrandr_apply_commnad)
+        self.xrandr_apply_button.grid(row=1, column=2, rowspan=1, sticky="W", padx=10, pady=10)
+
+        self.xrandr_apply_button = Button(self.step1_frame, width=10, font=self.font_submit, text="Close Window",
+                                          command=lambda arg1=self.xrandr_window: self.xrandr_close_commnad(arg1)
+                                           )
+        self.xrandr_apply_button.grid(row=1, column=3, rowspan=1, sticky="S", padx=10, pady=10)
+
+
+
+
+
+        self.step2_frame = LabelFrame(self.xrandr_window, text="Step 2: Run the following code to add the custom screen resolution to the system"
+                                      , borderwidth=4, font=self.font_header)
+        self.step2_frame.grid(row=1, column=0, sticky="WNE", padx=20,pady=15)
+        self.step2_frame.configure(padx=0, pady=10)
+
+        self.step2_frame.grid_columnconfigure(0, minsize=100, weight=0)
+        self.step2_frame.grid_columnconfigure(1, minsize=100, weight=0)
+        self.step2_frame.grid_columnconfigure(2, minsize=100, weight=1)
+
+
+        self.step2_editor = Text(self.step2_frame, font=self.font_gui, wrap=WORD , height=6)
+        self.step2_editor.grid(row=10, column=0, columnspan=3,  sticky="NWES",padx=10, pady=10)
+
+
+
+        self.step3_frame = LabelFrame(self.xrandr_window,
+                                      text="Step 3: Run the following code to activate the new custom screen resolution"
+                                      , borderwidth=4, font=self.font_header)
+        self.step3_frame.grid(row=2, column=0, sticky="WNE", padx=20,pady=15)
+        self.step3_frame.configure(padx=0, pady=10)
+
+        self.step3_frame.grid_columnconfigure(0, minsize=100, weight=0)
+        self.step3_frame.grid_columnconfigure(1, minsize=100, weight=0)
+        self.step3_frame.grid_columnconfigure(2, minsize=100, weight=1)
+
+        self.step3_editor = Text(self.step3_frame, font=self.font_gui, wrap=WORD, height=4)
+        self.step3_editor.grid(row=0, column=0, columnspan=3, sticky="NWES",padx=10, pady=10)
+
+
+
+        stepc3 = "Note: Only latest xrandr from github support nearest filter option."
+        self.step3_note_label = Label(self.step3_frame, font=self.font_label, text=stepc3)
+        self.step3_note_label.grid(row=1, column=0, columnspan=3, sticky="W", padx=10, pady=10)
+
+
+        #if zoom != 1:
+        #    self.step3_editor.insert(INSERT, stepc3)
+
+    def xrandr_apply_commnad(self):
+
+        # '1920 1200 8 --port hdmi --zoom 3 --xrandr'
+        width = int(self.dpi_screen_width.get())
+        height = int(self.dpi_screen_height.get())
+        port = str(self.xrandr_port_variable.get())
+        zoom = float(self.dpi_screen_zoom.get())
+        rotate = str(self.xrandr_rotate_variable.get())
+        screen_info = Screen_Info(width, height, port, zoom,rotate)
+        # w = screen_info.get_screen_width()
+        # h = screen_info.get_screen_height()
+
+        xrandr_new_mode = screen_info.get_xrandr_new_mode()
+        xrandr_add_mode = screen_info.get_xrandr_add_mode()
+        xrandr_activate_mode = screen_info.get_xrandr_activate_mode()
+
+        self.step2_editor.delete('1.0', END)
+        self.step2_editor.insert(INSERT, "\n")
+        self.step2_editor.insert(INSERT, xrandr_new_mode)
+        self.step2_editor.insert(INSERT, "\n\n")
+        self.step2_editor.insert(INSERT, xrandr_add_mode)
+        self.step2_editor.insert(INSERT, "\n\n")
+
+        self.step3_editor.delete('1.0', END)
+        self.step3_editor.insert(INSERT, "\n")
+        self.step3_editor.insert(INSERT, xrandr_activate_mode)
+
+    def xrandr_close_commnad(self,xrandr_window):
+        xrandr_window.destroy()
+
+    def about_command(self):
 
 
         self.about_window = Toplevel()
